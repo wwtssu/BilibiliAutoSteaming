@@ -5,7 +5,8 @@ import random
 from pydub.utils import mediainfo
 
 #------ define
-vcodec = 'h264_videotoolbox'
+#vcodec = 'h264_videotoolbox'
+vcodec = 'libx264'
 #acodec = 'copy'
 acodec = 'aac'
 
