@@ -163,7 +163,7 @@ def read_video(file):
         '-re', '-y',
         '-i', file,
         '-r', str(fps),
-        '-pixel_format', 'rgb24',
+        '-pix_fmt', 'rgb24',
         '-s', str(resolution[0]) + 'x' + str(resolution[1]),
         '-f', 'rawvideo',
         video_read_pipe_path,
@@ -180,7 +180,7 @@ def read_video(file):
             if len(read) == 0:
                 video_input_pipe.close()
                 break
-            im = Image.frombuffer('L', resolution, read)
+            im = Image.frombuffer('RGB', resolution, read)
             im = im.convert('RGB')
             video_queue.put(np.array(im))
     video_read_thread = threading.Thread(target=video_read_loop, args=())
