@@ -29,7 +29,7 @@ fps = 60
 video_media = [
     '.flv',
     '.mp4',
-	'.webm'
+    '.webm'
 ]
 
 audio_media = [
@@ -174,7 +174,6 @@ def read_video(file):
     ]
     subprocess.Popen(read_command, shell=False, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     def video_read_loop():
-        global offset
         video_input_pipe = open(video_read_pipe_path, 'rb')
         while True:
             read = video_input_pipe.read(resolution[0] * resolution[1] * 3)
