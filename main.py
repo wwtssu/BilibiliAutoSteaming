@@ -148,10 +148,10 @@ def audio_send_loop():
         elif not audio_queue.empty():
             data = audio_queue.get()
             os.write(audio_output_pipe, data)
-            if len(data) != int(ar/10):
-                os.write(audio_output_pipe, bytes([1 for i in range(0,int(ar/10) - len(data))]))
+            if len(data) != int(ar*ac*(aw/8)/10):
+                os.write(audio_output_pipe, bytes([1 for i in range(0,int(ar*ac*(aw/8)/10) - len(data))]))
         else:
-            os.write(audio_output_pipe, bytes([1 for i in range(0,int(ar/10))]))
+            os.write(audio_output_pipe, bytes([1 for i in range(0,int(ar*ac*(aw/8)/10))]))
 audio_send_thread = threading.Thread(target=audio_send_loop,args=())
 audio_send_thread.start()
 
@@ -190,7 +190,7 @@ def read_video(file):
     def audio_read_loop():
         audio_input_pipe = open(audio_read_pipe_path, 'rb')
         while True:
-            read = audio_input_pipe.read(int(ar/10))
+            read = audio_input_pipe.read(int(ar*ac*(aw/8)/10))
             if len(read) == 0:
                 audio_input_pipe.close()
                 break
@@ -216,7 +216,7 @@ def read_audio(file):
     def audio_read_loop():
         audio_input_pipe = open(audio_read_pipe_path, 'rb')
         while True:
-            read = audio_input_pipe.read(10000)
+            read = audio_input_pipe.read(int(ar*ac*(aw/8)/10))
             if len(read) == 0:
                 audio_input_pipe.close()
                 break
